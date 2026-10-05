@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Consulta de notas - 5.º F</title>
+<title>Consulta de notas - 5.º I</title>
 <style>
 *{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f3f6f9;color:#1f2937;min-height:100vh;display:flex;justify-content:center;padding:28px 15px}.contenedor{width:100%;max-width:720px}.cabecera{background:#17365d;color:white;border-radius:16px 16px 0 0;padding:28px 24px;text-align:center}.cabecera h1{margin:0 0 7px;font-size:27px}.cabecera p{margin:0;opacity:.9;font-size:15px}.tarjeta{background:white;border-radius:0 0 16px 16px;box-shadow:0 5px 22px rgba(0,0,0,.10);padding:24px}.busqueda{display:flex;gap:10px;margin-bottom:20px}.busqueda input{flex:1;padding:14px 15px;border:1px solid #cbd5e1;border-radius:10px;font-size:17px;outline:none}.busqueda input:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.12)}button{border:0;border-radius:10px;background:#2563eb;color:white;padding:0 22px;font-size:16px;font-weight:bold;cursor:pointer}button:hover{background:#1d4ed8}.mensaje{text-align:center;padding:15px;border-radius:10px;background:#f8fafc;color:#64748b}.resultado{display:none}.alumno{border-bottom:1px solid #e5e7eb;padding-bottom:17px;margin-bottom:17px}.alumno .nombre{font-size:21px;font-weight:bold;color:#17365d;margin-bottom:5px}.alumno .dni{font-size:14px;color:#64748b}.tabla{width:100%;border-collapse:collapse}.tabla th{background:#eef2f7;text-align:left;padding:11px 10px;font-size:14px}.tabla td{padding:11px 10px;border-bottom:1px solid #e5e7eb}.nota{text-align:center;font-weight:bold;font-size:16px}.AD{color:#166534}.A{color:#2563eb}.B{color:#b45309}.C{color:#dc2626}.pie{text-align:center;margin-top:20px;color:#94a3b8;font-size:12px}.error{background:#fef2f2;color:#b91c1c;border:1px solid #fecaca}.cargando{color:#475569}@media(max-width:560px){.busqueda{flex-direction:column}.busqueda button{height:48px}.cabecera h1{font-size:23px}.tarjeta{padding:18px}.tabla th,.tabla td{padding:9px 7px;font-size:13px}}
 </style>
@@ -12,7 +12,7 @@
 <div class="contenedor">
   <div class="cabecera">
     <h1>Consulta de notas</h1>
-    <p>5.º de Secundaria – Sección F</p>
+    <p>5.º de Secundaria – Sección I</p>
   </div>
   <div class="tarjeta">
     <div class="busqueda">
@@ -26,7 +26,7 @@
 </div>
 <script>
 let estudiantes=[];
-const ARCHIVO='5TO F.csv';
+const ARCHIVO='5TO I.csv';
 const nombresColumnas={
   'INFORME LABORATORIO 1':'Informe de laboratorio 1',
   'INFORME LABORATORIO 2':'Informe de laboratorio 2',
@@ -60,7 +60,7 @@ async function iniciar(){
     if(texto.includes('�') || !normalizar(texto.split('\n')[0]).includes('DNI')) texto=new TextDecoder('windows-1252').decode(buffer);
     cargarCSV(texto);
   }catch(e){
-    const m=document.getElementById('mensaje');m.className='mensaje error';m.textContent='No se pudo cargar el archivo de notas. Verifique que "5TO F.csv" esté en la misma carpeta que este index.html.';
+    const m=document.getElementById('mensaje');m.className='mensaje error';m.textContent='No se pudo cargar el archivo de notas. Verifique que "5TO I.csv" esté en la misma carpeta que este index.html.';
   }
 }
 function consultar(){
