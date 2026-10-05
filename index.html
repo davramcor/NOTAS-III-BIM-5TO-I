@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consulta de notas - 5.º F</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f3f6f9;color:#1f2937;min-height:100vh;display:flex;justify-content:center;padding:28px 15px}.contenedor{width:100%;max-width:720px}.cabecera{background:#17365d;color:white;border-radius:16px 16px 0 0;padding:28px 24px;text-align:center}.cabecera h1{margin:0 0 7px;font-size:27px}.cabecera p{margin:0;opacity:.9;font-size:15px}.tarjeta{background:white;border-radius:0 0 16px 16px;box-shadow:0 5px 22px rgba(0,0,0,.10);padding:24px}.busqueda{display:flex;gap:10px;margin-bottom:20px}.busqueda input{flex:1;padding:14px 15px;border:1px solid #cbd5e1;border-radius:10px;font-size:17px;outline:none}.busqueda input:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.12)}button{border:0;border-radius:10px;background:#2563eb;color:white;padding:0 22px;font-size:16px;font-weight:bold;cursor:pointer}button:hover{background:#1d4ed8}.mensaje{text-align:center;padding:15px;border-radius:10px;background:#f8fafc;color:#64748b}.resultado{display:none}.alumno{border-bottom:1px solid #e5e7eb;padding-bottom:17px;margin-bottom:17px}.alumno .nombre{font-size:21px;font-weight:bold;color:#17365d;margin-bottom:5px}.alumno .dni{font-size:14px;color:#64748b}.tabla{width:100%;border-collapse:collapse}.tabla th{background:#eef2f7;text-align:left;padding:11px 10px;font-size:14px}.tabla td{padding:11px 10px;border-bottom:1px solid #e5e7eb}.nota{text-align:center;font-weight:bold;font-size:16px}.AD{color:#166534}.A{color:#2563eb}.B{color:#b45309}.C{color:#dc2626}.pie{text-align:center;margin-top:20px;color:#94a3b8;font-size:12px}.error{background:#fef2f2;color:#b91c1c;border:1px solid #fecaca}.cargando{color:#475569}@media(max-width:560px){.busqueda{flex-direction:column}.busqueda button{height:48px}.cabecera h1{font-size:23px}.tarjeta{padding:18px}.tabla th,.tabla td{padding:9px 7px;font-size:13px}}
+</style>
+</head>
+<body>
+<div class="contenedor">
+  <div class="cabecera">
+    <h1>Consulta de notas</h1>
+    <p>5.º de Secundaria – Sección F</p>
+  </div>
+  <div class="tarjeta">
+    <div class="busqueda">
+      <input id="dni" type="text" inputmode="numeric" maxlength="8" placeholder="Ingrese su DNI" autocomplete="off">
+      <button id="buscar">Consultar</button>
+    </div>
+    <div id="mensaje" class="mensaje cargando">Cargando información…</div>
+    <div id="resultado" class="resultado"></div>
+    <div class="pie">Ingrese su DNI para consultar sus calificaciones.</div>
+  </div>
+</div>
+<script>
+let estudiantes=[];
+const ARCHIVO='5TO F.csv';
+const nombresColumnas={
+  'INFORME LABORATORIO 1':'Informe de laboratorio 1',
+  'INFORME LABORATORIO 2':'Informe de laboratorio 2',
+  'PRACTICA 1':'Práctica 1',
+  'PRACTICA 2':'Práctica 2',
+  'PRACTICA 3':'Práctica 3',
+  'EXPOSICIÓN':'Exposición'
+};
+function normalizar(s){return String(s??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim().toUpperCase()}
+function separar(linea){return linea.split(';').map(x=>x.trim())}
+function cargarCSV(texto){
+  texto=texto.replace(/^\uFEFF/,'').replace(/\r/g,'');
+  const lineas=texto.split('\n').filter(x=>x.trim());
+  if(lineas.length<2) throw new Error('El archivo no contiene registros.');
+  const encabezados=separar(lineas[0]);
+  estudiantes=lineas.slice(1).map(linea=>{
+    const c=separar(linea); let obj={};
+    encabezados.forEach((h,i)=>obj[normalizar(h)]=c[i]??'');
+    return obj;
+  }).filter(x=>x.DNI);
+  if(!estudiantes.length) throw new Error('No se encontraron estudiantes en el CSV.');
+  document.getElementById('mensaje').textContent='Ingrese su DNI para consultar sus notas.';
+}
+async function iniciar(){
+  try{
+    const r=await fetch(ARCHIVO+'?v='+Date.now());
+    if(!r.ok) throw new Error('No se pudo cargar '+ARCHIVO+'.');
+    const buffer=await r.arrayBuffer();
+    let texto=new TextDecoder('utf-8',{fatal:false}).decode(buffer);
+    // Si el CSV fue guardado con Windows-1252/ANSI, recuperamos los caracteres correctamente.
+    if(texto.includes('�') || !normalizar(texto.split('\n')[0]).includes('DNI')) texto=new TextDecoder('windows-1252').decode(buffer);
+    cargarCSV(texto);
+  }catch(e){
+    const m=document.getElementById('mensaje');m.className='mensaje error';m.textContent='No se pudo cargar el archivo de notas. Verifique que "5TO F.csv" esté en la misma carpeta que este index.html.';
+  }
+}
+function consultar(){
+  const entrada=document.getElementById('dni').value.replace(/\D/g,'');
+  const resultado=document.getElementById('resultado'); resultado.style.display='none'; resultado.innerHTML='';
+  if(!/^\d{8}$/.test(entrada)){document.getElementById('mensaje').className='mensaje error';document.getElementById('mensaje').textContent='Ingrese un DNI válido de 8 dígitos.';return;}
+  const alumno=estudiantes.find(x=>String(x.DNI).replace(/\D/g,'')===entrada);
+  if(!alumno){document.getElementById('mensaje').className='mensaje error';document.getElementById('mensaje').textContent='No se encontró un estudiante con ese DNI.';return;}
+  document.getElementById('mensaje').style.display='none';
+  const campos=['INFORME LABORATORIO 1','INFORME LABORATORIO 2','PRACTICA 1','PRACTICA 2','PRACTICA 3','EXPOSICIÓN'];
+  let filas=campos.map(c=>{const nota=String(alumno[c]||'').trim().toUpperCase();const clase=['AD','A','B','C'].includes(nota)?nota:'';return `<tr><td>${nombresColumnas[c]||c}</td><td class="nota ${clase}">${nota||'—'}</td></tr>`}).join('');
+  resultado.innerHTML=`<div class="alumno"><div class="nombre">${escapar(alumno['APELLIDOS Y NOMBRES'])}</div><div class="dni">DNI: ${escapar(alumno.DNI)}</div></div><table class="tabla"><thead><tr><th>Actividad</th><th style="text-align:center">Calificación</th></tr></thead><tbody>${filas}</tbody></table>`;
+  resultado.style.display='block';
+}
+function escapar(s){return String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+document.getElementById('buscar').addEventListener('click',consultar);
+document.getElementById('dni').addEventListener('keydown',e=>{if(e.key==='Enter')consultar()});
+iniciar();
+</script>
+</body>
+</html>
