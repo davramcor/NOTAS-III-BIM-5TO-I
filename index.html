@@ -3,197 +3,187 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Consulta de notas - 5.º I</title>
 
 <style>
-*{
-    box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
-    margin:0;
-    font-family:Arial,Helvetica,sans-serif;
-    background:#f3f6f9;
-    color:#1f2937;
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    padding:28px 15px;
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f3f6f9;
+  color:#1f2937;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  padding:28px 15px
 }
 
 .contenedor{
-    width:100%;
-    max-width:720px;
+  width:100%;
+  max-width:720px
 }
 
 .cabecera{
-    background:#17365d;
-    color:white;
-    border-radius:16px 16px 0 0;
-    padding:28px 24px;
-    text-align:center;
+  background:#17365d;
+  color:white;
+  border-radius:16px 16px 0 0;
+  padding:28px 24px;
+  text-align:center
 }
 
 .cabecera h1{
-    margin:0 0 7px;
-    font-size:27px;
+  margin:0 0 7px;
+  font-size:27px
 }
 
 .cabecera p{
-    margin:0;
-    opacity:.9;
-    font-size:15px;
+  margin:0;
+  opacity:.9;
+  font-size:15px
 }
 
 .tarjeta{
-    background:white;
-    border-radius:0 0 16px 16px;
-    box-shadow:0 5px 22px rgba(0,0,0,.10);
-    padding:24px;
+  background:white;
+  border-radius:0 0 16px 16px;
+  box-shadow:0 5px 22px rgba(0,0,0,.10);
+  padding:24px
 }
 
 .busqueda{
-    display:flex;
-    gap:10px;
-    margin-bottom:20px;
+  display:flex;
+  gap:10px;
+  margin-bottom:20px
 }
 
 .busqueda input{
-    flex:1;
-    padding:14px 15px;
-    border:1px solid #cbd5e1;
-    border-radius:10px;
-    font-size:17px;
-    outline:none;
+  flex:1;
+  padding:14px 15px;
+  border:1px solid #cbd5e1;
+  border-radius:10px;
+  font-size:17px;
+  outline:none
 }
 
 .busqueda input:focus{
-    border-color:#2563eb;
-    box-shadow:0 0 0 3px rgba(37,99,235,.12);
+  border-color:#2563eb;
+  box-shadow:0 0 0 3px rgba(37,99,235,.12)
 }
 
 button{
-    border:0;
-    border-radius:10px;
-    background:#2563eb;
-    color:white;
-    padding:0 22px;
-    font-size:16px;
-    font-weight:bold;
-    cursor:pointer;
+  border:0;
+  border-radius:10px;
+  background:#2563eb;
+  color:white;
+  padding:0 22px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer
 }
 
 button:hover{
-    background:#1d4ed8;
+  background:#1d4ed8
 }
 
 .mensaje{
-    text-align:center;
-    padding:15px;
-    border-radius:10px;
-    background:#f8fafc;
-    color:#64748b;
-    margin-bottom:18px;
-}
-
-.error{
-    background:#fef2f2;
-    color:#b91c1c;
-    border:1px solid #fecaca;
+  text-align:center;
+  padding:15px;
+  border-radius:10px;
+  background:#f8fafc;
+  color:#64748b
 }
 
 .resultado{
-    display:none;
+  display:none
 }
 
 .alumno{
-    border-bottom:1px solid #e5e7eb;
-    padding-bottom:17px;
-    margin-bottom:17px;
+  border-bottom:1px solid #e5e7eb;
+  padding-bottom:17px;
+  margin-bottom:17px
 }
 
-.nombre{
-    font-size:21px;
-    font-weight:bold;
-    color:#17365d;
-    margin-bottom:5px;
+.alumno .nombre{
+  font-size:21px;
+  font-weight:bold;
+  color:#17365d;
+  margin-bottom:5px
 }
 
-.identificador{
-    font-size:14px;
-    color:#64748b;
+.alumno .dni{
+  font-size:14px;
+  color:#64748b
 }
 
 .tabla{
-    width:100%;
-    border-collapse:collapse;
+  width:100%;
+  border-collapse:collapse
 }
 
 .tabla th{
-    background:#eef2f7;
-    text-align:left;
-    padding:11px 10px;
-    font-size:14px;
+  background:#eef2f7;
+  text-align:left;
+  padding:11px 10px;
+  font-size:14px
 }
 
 .tabla td{
-    padding:11px 10px;
-    border-bottom:1px solid #e5e7eb;
+  padding:11px 10px;
+  border-bottom:1px solid #e5e7eb
 }
 
 .nota{
-    text-align:center;
-    font-weight:bold;
-    font-size:16px;
+  text-align:center;
+  font-weight:bold;
+  font-size:16px
 }
 
-.AD{
-    color:#166534;
-}
-
-.A{
-    color:#2563eb;
-}
-
-.B{
-    color:#b45309;
-}
-
-.C{
-    color:#dc2626;
-}
+.AD{color:#166534}
+.A{color:#2563eb}
+.B{color:#b45309}
+.C{color:#dc2626}
 
 .pie{
-    text-align:center;
-    margin-top:20px;
-    color:#94a3b8;
-    font-size:12px;
+  text-align:center;
+  margin-top:20px;
+  color:#94a3b8;
+  font-size:12px
+}
+
+.error{
+  background:#fef2f2;
+  color:#b91c1c;
+  border:1px solid #fecaca
+}
+
+.cargando{
+  color:#475569
 }
 
 @media(max-width:560px){
 
-    .busqueda{
-        flex-direction:column;
-    }
+  .busqueda{
+    flex-direction:column
+  }
 
-    .busqueda button{
-        height:48px;
-    }
+  .busqueda button{
+    height:48px
+  }
 
-    .cabecera h1{
-        font-size:23px;
-    }
+  .cabecera h1{
+    font-size:23px
+  }
 
-    .tarjeta{
-        padding:18px;
-    }
+  .tarjeta{
+    padding:18px
+  }
 
-    .tabla th,
-    .tabla td{
-        padding:9px 7px;
-        font-size:13px;
-    }
+  .tabla th,
+  .tabla td{
+    padding:9px 7px;
+    font-size:13px
+  }
+
 }
 </style>
 </head>
@@ -202,547 +192,569 @@ button:hover{
 
 <div class="contenedor">
 
-    <div class="cabecera">
-        <h1>Consulta de notas</h1>
-        <p>5.º de Secundaria – Sección I</p>
-    </div>
+  <div class="cabecera">
+    <h1>Consulta de notas</h1>
+    <p>5.º de Secundaria – Sección I</p>
+  </div>
 
-    <div class="tarjeta">
+  <div class="tarjeta">
 
-        <div class="busqueda">
+    <div class="busqueda">
 
-            <input
-                id="identificador"
-                type="text"
-                inputmode="numeric"
-                maxlength="14"
-                placeholder="Ingrese su DNI o código"
-                autocomplete="off"
-            >
+      <input
+        id="dni"
+        type="text"
+        inputmode="numeric"
+        maxlength="14"
+        placeholder="Ingrese su DNI o código"
+        autocomplete="off"
+      >
 
-            <button id="buscar">
-                Consultar
-            </button>
-
-        </div>
-
-        <div id="mensaje" class="mensaje">
-            Cargando información...
-        </div>
-
-        <div id="resultado" class="resultado"></div>
-
-        <div class="pie">
-            Ingrese su DNI o código de estudiante.
-        </div>
+      <button id="buscar">
+        Consultar
+      </button>
 
     </div>
+
+    <div id="mensaje" class="mensaje cargando">
+      Cargando información…
+    </div>
+
+    <div id="resultado" class="resultado"></div>
+
+    <div class="pie">
+      Ingrese su DNI o código para consultar sus calificaciones.
+    </div>
+
+  </div>
 
 </div>
 
-
 <script>
-
-/* =========================================
-   ARCHIVO CSV
-   ========================================= */
-
-const ARCHIVO = "5TO I.csv";
 
 let estudiantes = [];
 
+const ARCHIVO = '5TO I.csv';
+
 
 /* =========================================
-   LEER UNA LÍNEA DEL CSV
-   ========================================= */
+   NOMBRES DE LAS COLUMNAS
+========================================= */
+
+const nombresColumnas = {
+
+  'INFORME LABORATORIO 1':
+    'Informe de laboratorio 1',
+
+  'INFORME LABORATORIO 2':
+    'Informe de laboratorio 2',
+
+  'PRACTICA 1':
+    'Práctica 1',
+
+  'PRACTICA 2':
+    'Práctica 2',
+
+  'PRACTICA 3':
+    'Práctica 3',
+
+  'PRACTICA 4':
+    'Práctica 4',
+
+  'EXPOSICION':
+    'Exposición'
+
+};
+
+
+/* =========================================
+   NORMALIZAR ENCABEZADOS
+========================================= */
+
+function normalizar(s){
+
+  return String(s ?? '')
+    .replace(/\uFEFF/g,'')
+    .replace(/�/g,'')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g,'')
+    .trim()
+    .toUpperCase();
+
+}
+
+
+/* =========================================
+   SEPARAR CSV
+========================================= */
 
 function separar(linea){
 
-    return linea
-        .split(";")
-        .map(x => x.trim());
+  return linea
+    .split(';')
+    .map(x => x.trim());
 
 }
 
 
 /* =========================================
-   CARGAR LOS DATOS
-   ========================================= */
+   CARGAR CSV
+========================================= */
 
 function cargarCSV(texto){
 
-    texto = texto
-        .replace(/^\uFEFF/, "")
-        .replace(/\r/g, "");
+  texto = texto
+    .replace(/^\uFEFF/,'')
+    .replace(/\r/g,'');
 
 
-    const lineas = texto
-        .split("\n")
-        .filter(linea => linea.trim() !== "");
+  const lineas = texto
+    .split('\n')
+    .filter(x => x.trim());
 
 
-    if(lineas.length < 2){
+  if(lineas.length < 2){
 
-        throw new Error(
-            "El CSV no contiene estudiantes."
-        );
+    throw new Error(
+      'El archivo no contiene registros.'
+    );
 
-    }
+  }
 
 
-    /*
-       IMPORTANTE:
+  const encabezadosOriginales =
+    separar(lineas[0]);
 
-       NO dependemos de los nombres de
-       las columnas.
 
-       Usamos directamente la posición:
+  const encabezados =
+    encabezadosOriginales.map(h => {
 
-       0 = identificador
-       1 = nombre
-       2 = laboratorio 1
-       3 = laboratorio 2
-       4 = práctica 1
-       5 = práctica 2
-       6 = práctica 3
-       7 = práctica 4
-       8 = exposición
-    */
+      const n = normalizar(h);
 
 
-    estudiantes = [];
+      /*
+         El CSV de 5.º I puede tener
+         EXPOSICI�N por problema de
+         codificación.
 
+         Lo convertimos igualmente
+         a EXPOSICION.
+      */
 
-    for(let i = 1; i < lineas.length; i++){
+      if(
+        n.includes('EXPOSICI')
+      ){
 
-        const datos = separar(lineas[i]);
+        return 'EXPOSICION';
 
+      }
 
-        if(datos.length < 9){
-            continue;
-        }
 
-
-        estudiantes.push({
-
-            identificador: datos[0],
-
-            nombre: datos[1],
-
-            laboratorio1: datos[2],
-
-            laboratorio2: datos[3],
-
-            practica1: datos[4],
-
-            practica2: datos[5],
-
-            practica3: datos[6],
-
-            practica4: datos[7],
-
-            exposicion: datos[8]
-
-        });
-
-    }
-
-
-    if(estudiantes.length === 0){
-
-        throw new Error(
-            "No se encontraron estudiantes."
-        );
-
-    }
-
-
-    document.getElementById("mensaje").className =
-        "mensaje";
-
-
-    document.getElementById("mensaje").textContent =
-        "Información cargada. Ingrese su DNI o código.";
-
-}
-
-
-/* =========================================
-   CARGAR ARCHIVO DESDE GITHUB
-   ========================================= */
-
-async function iniciar(){
-
-    try{
-
-        const respuesta = await fetch(
-            ARCHIVO + "?v=" + Date.now()
-        );
-
-
-        if(!respuesta.ok){
-
-            throw new Error(
-                "No se pudo encontrar el archivo."
-            );
-
-        }
-
-
-        const buffer =
-            await respuesta.arrayBuffer();
-
-
-        /*
-           Primero intentamos UTF-8.
-        */
-
-        let texto =
-            new TextDecoder("utf-8")
-            .decode(buffer);
-
-
-        /*
-           Si el archivo tiene caracteres
-           dañados, intentamos Windows-1252.
-        */
-
-        if(texto.includes("�")){
-
-            texto =
-                new TextDecoder("windows-1252")
-                .decode(buffer);
-
-        }
-
-
-        cargarCSV(texto);
-
-
-    }catch(error){
-
-        const mensaje =
-            document.getElementById("mensaje");
-
-
-        mensaje.className =
-            "mensaje error";
-
-
-        mensaje.textContent =
-            'No se pudo cargar "5TO I.csv". ' +
-            'Verifique que esté en el mismo repositorio ' +
-            'y tenga exactamente ese nombre.';
-
-    }
-
-}
-
-
-/* =========================================
-   BUSCAR
-   ========================================= */
-
-function consultar(){
-
-    const campo =
-        document.getElementById("identificador");
-
-
-    /*
-       Solamente eliminamos espacios y
-       caracteres que no sean números.
-
-       LOS CEROS INICIALES SE CONSERVAN.
-    */
-
-    const buscado =
-        campo.value.replace(/\D/g, "");
-
-
-    const mensaje =
-        document.getElementById("mensaje");
-
-
-    const resultado =
-        document.getElementById("resultado");
-
-
-    resultado.style.display = "none";
-
-    resultado.innerHTML = "";
-
-
-    /* Debe ser DNI de 8 o código de 14 */
-
-    if(
-        buscado.length !== 8 &&
-        buscado.length !== 14
-    ){
-
-        mensaje.className =
-            "mensaje error";
-
-        mensaje.style.display =
-            "block";
-
-        mensaje.textContent =
-            "Ingrese un DNI de 8 dígitos o un código de 14 dígitos.";
-
-        return;
-
-    }
-
-
-    /*
-       BÚSQUEDA EXACTA.
-
-       Ejemplo:
-
-       CSV:
-       00000073159222
-
-       Entrada:
-       00000073159222
-
-       Coincide.
-
-       NO quitamos los ceros.
-    */
-
-    const alumno =
-        estudiantes.find(estudiante => {
-
-            return estudiante.identificador === buscado;
-
-        });
-
-
-    /* No encontrado */
-
-    if(!alumno){
-
-        mensaje.className =
-            "mensaje error";
-
-        mensaje.style.display =
-            "block";
-
-        mensaje.textContent =
-            "No se encontró un estudiante con ese DNI o código.";
-
-        return;
-
-    }
-
-
-    mensaje.style.display =
-        "none";
-
-
-    /* =====================================
-       CONSTRUIR TABLA
-       ===================================== */
-
-    const actividades = [
-
-        [
-            "Informe de laboratorio 1",
-            alumno.laboratorio1
-        ],
-
-        [
-            "Informe de laboratorio 2",
-            alumno.laboratorio2
-        ],
-
-        [
-            "Práctica 1",
-            alumno.practica1
-        ],
-
-        [
-            "Práctica 2",
-            alumno.practica2
-        ],
-
-        [
-            "Práctica 3",
-            alumno.practica3
-        ],
-
-        [
-            "Práctica 4",
-            alumno.practica4
-        ],
-
-        [
-            "Exposición",
-            alumno.exposicion
-        ]
-
-    ];
-
-
-    let filas = "";
-
-
-    actividades.forEach(actividad => {
-
-        const nombre =
-            actividad[0];
-
-        const nota =
-            String(actividad[1] || "")
-            .trim()
-            .toUpperCase();
-
-
-        let clase = "";
-
-        if(
-            nota === "AD" ||
-            nota === "A" ||
-            nota === "B" ||
-            nota === "C"
-        ){
-
-            clase = nota;
-
-        }
-
-
-        filas += `
-
-            <tr>
-
-                <td>${nombre}</td>
-
-                <td class="nota ${clase}">
-                    ${nota || "—"}
-                </td>
-
-            </tr>
-
-        `;
+      return n;
 
     });
 
 
-    /* =====================================
-       MOSTRAR RESULTADO
-       ===================================== */
+  estudiantes =
+    lineas.slice(1)
+    .map(linea => {
 
-    resultado.innerHTML = `
+      const c = separar(linea);
 
-        <div class="alumno">
-
-            <div class="nombre">
-                ${escapar(alumno.nombre)}
-            </div>
-
-            <div class="identificador">
-                DNI / Código:
-                ${escapar(alumno.identificador)}
-            </div>
-
-        </div>
+      const obj = {};
 
 
-        <table class="tabla">
+      encabezados.forEach((h,i) => {
 
-            <thead>
+        obj[h] = c[i] ?? '';
 
-                <tr>
-
-                    <th>
-                        Actividad
-                    </th>
-
-                    <th style="text-align:center">
-                        Calificación
-                    </th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-                ${filas}
-
-            </tbody>
-
-        </table>
-
-    `;
+      });
 
 
-    resultado.style.display =
-        "block";
+      return obj;
+
+    })
+    .filter(x => x.DNI);
+
+
+  if(!estudiantes.length){
+
+    throw new Error(
+      'No se encontraron estudiantes en el CSV.'
+    );
+
+  }
+
+
+  document.getElementById('mensaje').className =
+    'mensaje';
+
+  document.getElementById('mensaje').textContent =
+    'Información cargada. Ingrese su DNI o código.';
 
 }
 
 
 /* =========================================
-   SEGURIDAD
-   ========================================= */
+   CARGAR ARCHIVO
+========================================= */
 
-function escapar(texto){
+async function iniciar(){
 
-    return String(texto ?? "")
-        .replace(/[&<>'"]/g, caracter => {
+  try{
 
-            return {
+    const r =
+      await fetch(
+        ARCHIVO + '?v=' + Date.now()
+      );
 
-                "&":"&amp;",
-                "<":"&lt;",
-                ">":"&gt;",
-                "'":"&#39;",
-                '"':"&quot;"
 
-            }[caracter];
+    if(!r.ok){
 
-        });
+      throw new Error(
+        'No se pudo cargar ' +
+        ARCHIVO + '.'
+      );
+
+    }
+
+
+    const buffer =
+      await r.arrayBuffer();
+
+
+    /*
+       Intentamos UTF-8 primero.
+    */
+
+    let texto =
+      new TextDecoder(
+        'utf-8',
+        {fatal:false}
+      ).decode(buffer);
+
+
+    /*
+       Si aparecen caracteres dañados,
+       intentamos Windows-1252.
+    */
+
+    if(
+      texto.includes('�') ||
+      !normalizar(
+        texto.split('\n')[0]
+      ).includes('DNI')
+    ){
+
+      texto =
+        new TextDecoder(
+          'windows-1252'
+        ).decode(buffer);
+
+    }
+
+
+    cargarCSV(texto);
+
+
+  }catch(e){
+
+    console.error(e);
+
+
+    const m =
+      document.getElementById('mensaje');
+
+
+    m.className =
+      'mensaje error';
+
+
+    m.textContent =
+      'No se pudo cargar el archivo de notas. ' +
+      'Verifique que "5TO I.csv" esté en la misma carpeta ' +
+      'que este index.html.';
+
+  }
+
+}
+
+
+/* =========================================
+   CONSULTAR
+========================================= */
+
+function consultar(){
+
+  const entrada =
+    document
+      .getElementById('dni')
+      .value
+      .replace(/\D/g,'');
+
+
+  const resultado =
+    document.getElementById('resultado');
+
+
+  const mensaje =
+    document.getElementById('mensaje');
+
+
+  resultado.style.display =
+    'none';
+
+  resultado.innerHTML = '';
+
+
+  /*
+     Aceptamos:
+
+     DNI     = 8 dígitos
+     CÓDIGO  = 14 dígitos
+
+     NO eliminamos ceros iniciales.
+  */
+
+  if(
+    entrada.length !== 8 &&
+    entrada.length !== 14
+  ){
+
+    mensaje.className =
+      'mensaje error';
+
+    mensaje.style.display =
+      'block';
+
+    mensaje.textContent =
+      'Ingrese un DNI de 8 dígitos o un código de 14 dígitos.';
+
+    return;
+
+  }
+
+
+  /*
+     BÚSQUEDA EXACTA.
+
+     Esto es importante.
+
+     Si el CSV contiene:
+
+     00000073159222
+
+     debe ingresar exactamente:
+
+     00000073159222
+
+     Los ceros NO se eliminan.
+  */
+
+  const alumno =
+    estudiantes.find(
+      x =>
+        String(x.DNI).trim() === entrada
+    );
+
+
+  if(!alumno){
+
+    mensaje.className =
+      'mensaje error';
+
+    mensaje.style.display =
+      'block';
+
+    mensaje.textContent =
+      'No se encontró un estudiante con ese DNI o código.';
+
+    return;
+
+  }
+
+
+  mensaje.style.display =
+    'none';
+
+
+  /* =====================================
+     CAMPOS A MOSTRAR
+  ===================================== */
+
+  const campos = [
+
+    'INFORME LABORATORIO 1',
+
+    'INFORME LABORATORIO 2',
+
+    'PRACTICA 1',
+
+    'PRACTICA 2',
+
+    'PRACTICA 3',
+
+    'PRACTICA 4',
+
+    'EXPOSICION'
+
+  ];
+
+
+  let filas =
+    campos.map(c => {
+
+      const nota =
+        String(
+          alumno[c] || ''
+        )
+        .trim()
+        .toUpperCase();
+
+
+      const clase =
+        ['AD','A','B','C'].includes(nota)
+          ? nota
+          : '';
+
+
+      return `
+
+        <tr>
+
+          <td>
+            ${nombresColumnas[c] || c}
+          </td>
+
+          <td class="nota ${clase}">
+            ${escapar(nota || '—')}
+          </td>
+
+        </tr>
+
+      `;
+
+    }).join('');
+
+
+  /* =====================================
+     MOSTRAR RESULTADO
+  ===================================== */
+
+  resultado.innerHTML = `
+
+    <div class="alumno">
+
+      <div class="nombre">
+
+        ${escapar(
+          alumno['APELLIDOS Y NOMBRES']
+        )}
+
+      </div>
+
+      <div class="dni">
+
+        DNI / Código:
+        ${escapar(alumno.DNI)}
+
+      </div>
+
+    </div>
+
+
+    <table class="tabla">
+
+      <thead>
+
+        <tr>
+
+          <th>
+            Actividad
+          </th>
+
+          <th style="text-align:center">
+            Calificación
+          </th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        ${filas}
+
+      </tbody>
+
+    </table>
+
+  `;
+
+
+  resultado.style.display =
+    'block';
+
+}
+
+
+/* =========================================
+   ESCAPAR TEXTO
+========================================= */
+
+function escapar(s){
+
+  return String(s ?? '')
+    .replace(
+      /[&<>'"]/g,
+      c =>
+        ({
+          '&':'&amp;',
+          '<':'&lt;',
+          '>':'&gt;',
+          "'":'&#39;',
+          '"':'&quot;'
+        }[c])
+    );
 
 }
 
 
 /* =========================================
    BOTÓN
-   ========================================= */
+========================================= */
 
 document
-    .getElementById("buscar")
-    .addEventListener(
-        "click",
-        consultar
-    );
+  .getElementById('buscar')
+  .addEventListener(
+    'click',
+    consultar
+  );
 
 
 /* =========================================
    ENTER
-   ========================================= */
+========================================= */
 
 document
-    .getElementById("identificador")
-    .addEventListener(
-        "keydown",
-        function(event){
+  .getElementById('dni')
+  .addEventListener(
+    'keydown',
+    e => {
 
-            if(event.key === "Enter"){
+      if(e.key === 'Enter'){
 
-                consultar();
+        consultar();
 
-            }
+      }
 
-        }
-    );
+    }
+  );
 
 
 /* =========================================
    INICIAR
-   ========================================= */
+========================================= */
 
 iniciar();
 
